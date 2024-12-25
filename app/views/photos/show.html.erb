@@ -1,0 +1,16 @@
+<h1><%= @photo.title %></h1>
+<p><%= @photo.description %></p>
+<%= image_tag @photo.image %>
+
+<h3>Comentarios:</h3>
+<% @comments.each do |comment| %>
+  <div>
+    <%= image_tag comment.user.profile_picture if comment.user.profile_picture.attached? %>
+    <%= comment.content %>
+  </div>
+<% end %>
+
+<%= form_with(model: [@photo, Comment.new], local: true) do |form| %>
+  <%= form.text_area :content %>
+  <%= form.submit 'Comentar' %>
+<% end %>
